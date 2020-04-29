@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>HTTP协议状态码 | ErosionBlog</title>
+  <title>常见误区 | ErosionBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="虽然在学习计算机网络的阶段我们已经了解过Http协议，但是依然有很多程序员不了解Http状态码，导致写出来的API’不清真’，让我们看看常用的Http状态码都有哪些">
+  <meta name="description" content="结构是轻量级的类？引用类型保存在堆上，值类型保存在栈上？你是否真正了解这些？">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HTTP协议状态码">
-<meta property="og:url" content="http://yoursite.com/2020/03/31/HTTP%E5%8D%8F%E8%AE%AE%E7%8A%B6%E6%80%81%E7%A0%81/index.html">
+<meta property="og:title" content="常见误区">
+<meta property="og:url" content="http://yoursite.com/2020/04/12/%E5%B8%B8%E8%A7%81%E8%AF%AF%E5%8C%BA/index.html">
 <meta property="og:site_name" content="ErosionBlog">
-<meta property="og:description" content="虽然在学习计算机网络的阶段我们已经了解过Http协议，但是依然有很多程序员不了解Http状态码，导致写出来的API’不清真’，让我们看看常用的Http状态码都有哪些">
+<meta property="og:description" content="结构是轻量级的类？引用类型保存在堆上，值类型保存在栈上？你是否真正了解这些？">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-03-31T06:16:36.000Z">
-<meta property="article:modified_time" content="2020-03-31T07:28:13.533Z">
+<meta property="article:published_time" content="2020-04-12T15:01:17.000Z">
+<meta property="article:modified_time" content="2020-04-12T15:34:07.914Z">
 <meta property="article:author" content="ErosionYing">
 <meta name="twitter:card" content="summary">
   
@@ -140,47 +140,31 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-HTTP协议状态码" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-常见误区" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      HTTP协议状态码
+      常见误区
     </h1>
   
 
         
-        <a href="/2020/03/31/HTTP%E5%8D%8F%E8%AE%AE%E7%8A%B6%E6%80%81%E7%A0%81/" class="archive-article-date">
-  	<time datetime="2020-03-31T06:16:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-31</time>
+        <a href="/2020/04/12/%E5%B8%B8%E8%A7%81%E8%AF%AF%E5%8C%BA/" class="archive-article-date">
+  	<time datetime="2020-04-12T15:01:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>虽然在学习计算机网络的阶段我们已经了解过Http协议，但是依然有很多程序员不了解Http状态码，导致写出来的API’不清真’，让我们看看常用的Http状态码都有哪些</p>
+        <p>结构是轻量级的类？引用类型保存在堆上，值类型保存在栈上？你是否真正了解这些？</p>
 <a id="more"></a>
-<h2 id="1XX系列状态码"><a href="#1XX系列状态码" class="headerlink" title="1XX系列状态码"></a>1XX系列状态码</h2><ul>
-<li>信息性状态码，Web API并不使用1XX的状态码，所以这里略过…<h2 id="2XX系列状态码"><a href="#2XX系列状态码" class="headerlink" title="2XX系列状态码"></a>2XX系列状态码</h2>2XX系列的状态码表示客户端的请求被正确执行</li>
-<li>200 - OK，表示此次请求是成功的。</li>
-<li>201 - Created，表示请求服务端成功，服务端成功理解了客户端的请求，并创建了对应的资源。</li>
-<li>204 - No Content，请求成功，服务端也成功理解了请求，但是操作本身不该返回任何数据，例如对资源的删除操作。<h2 id="3XX系列状态码"><a href="#3XX系列状态码" class="headerlink" title="3XX系列状态码"></a>3XX系列状态码</h2>用于页面的跳转操作，例如告诉搜索引擎，某个页面的网址已经永久的改变了，这一系列的状态码在Web API中也几乎不会遇到，这里也直接略过…<h2 id="4XX系列状态码"><a href="#4XX系列状态码" class="headerlink" title="4XX系列状态码"></a>4XX系列状态码</h2>4XX系列的状态码应该是大多数人见过的最多状态码了，比如：404，表示客户端错误</li>
-<li>400 - Bad Request，表示API消费者发送到服务器的请求是有错误的</li>
-<li>401 - Unauthorized，表示没有提供授权信息或者提供的授权信息不正确。</li>
-<li>402 - Forbidden，表示身份认证已经成功，但是已认证的用户却无法访问请求的资源。</li>
-<li>404 - Not Found，表示请求的资源不存在。</li>
-<li>405 - Method not allowed，当尝试发送请求到资源的时候，使用了不被支持的HTTP方法时，就会返回405状态码。</li>
-<li>406 - Not acceptable，这表示API消费者请求的表述格式并不被Web API所支持，并且API不会提供默认的表述格式。</li>
-<li>409 - Conflict，表示请求与服务器当前状态冲突。同长指更新资源时发生的冲突，例如，当你编辑某个资源的时候，该资源在服务器上又进行了更新，所以你编辑的资源版本已经和服务器的不一致了。当然有时候也用来表示你想要创建的资源在服务器上已经存在了。它就是用来处理并发问题的状态码。</li>
-<li>415 - Unsupported media type，与406正好相反，有一些请求必须带着数据发往服务器，这些数据都属于特定的媒体类型，如果API不支持该媒体类型格式，415就会被返回。</li>
-<li>422 - Unprocessable entity，它是HTTP扩展协议的一部分。它说命服务器已经懂得了实体的Content Type，也就是说415状态码是不合适的，此外，实体的语法也是没有问题的，所以400状态码也是不合适的。但是服务器仍然无法处理这个实体数据，这时就可以返回422状态码。<h2 id="5XX系列状态码"><a href="#5XX系列状态码" class="headerlink" title="5XX系列状态码"></a>5XX系列状态码</h2>出现5XX系列状态码，表示服务器端出现了错误。</li>
-<li>500 - Interna Server error，表示服务器出现了内部错误。<h2 id="错误和故障"><a href="#错误和故障" class="headerlink" title="错误和故障"></a>错误和故障</h2>Error and Faults – 错误和故障这点是针对与状态码的<br>错误通常是由API的消费者引起的。API消费者在请求时传递的数据是不合理的，这时API就会正常的将其拒绝。</li>
-<li>对应状态码：4XX</li>
-<li>API是正常工作的状态，所以并不会影响API的可用性。<br>故障是指，针对一个合理的请求，API无法返回它的响应，换句话说就是API引起的问题。</li>
-<li>对应状态码：5XX</li>
-<li>会对API整体的可用性造成影响。</li>
+<h2 id="误区一：结构是轻量级的类"><a href="#误区一：结构是轻量级的类" class="headerlink" title="误区一：结构是轻量级的类"></a>误区一：结构是轻量级的类</h2><ul>
+<li>有人认为值类型不能或不应该存在方法或其它有意义的行为，应该做为一种简单的数据类型来使用，它只负责存储数据的工作，理所当然只应该有public字段和简单属性，这个想法貌似很理所当然，但是很不幸，对于一些特殊数据超出这种思想的范围，例如常见的DateTime类型，该类型应当被当作存储数字和字符的一个基本单位来使用，但是它也理所应当被赋予对本身进行计算的能力。总之，具体应该如何决定，应取决于需要的是值类型还是引用类型。(一个值有没有意义并不是值本身决定的，这取决于你对数值的看法。计算机本身只存储二进制，对于计算机来说无论是指令还是数据来说都没有区别，至于如何分别这取决于CPU中的寄存器，寄存器又取决于人的指令指挥……    —扯得好像有点多)</li>
+<li>还有些人认为值类型之所以显得比引用类型”轻”是因为行能。但是事实上在某些情况下，值类型很”能干”，它们不需要垃圾回收(除非被装箱)，不会因为类型表示而产生开销，也不需要解引用等复杂操作。但是进行业务工作时，引用类型略胜一筹，传递参数、赋值、返回值和执行类似操作时，只需要<h2 id=""><a href="#" class="headerlink" title=""></a></h2></li>
 </ul>
 
       
@@ -261,7 +245,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/31/HTTP%E5%8D%8F%E8%AE%AE%E7%8A%B6%E6%80%81%E7%A0%81/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/04/12/%E5%B8%B8%E8%A7%81%E8%AF%AF%E5%8C%BA/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -275,18 +259,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/04/12/%E5%B8%B8%E8%A7%81%E8%AF%AF%E5%8C%BA/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/04/29/%E9%80%9A%E8%BF%87IP%E5%9C%B0%E5%9D%80%E9%99%90%E5%88%B6%E8%AF%B7%E6%B1%82%E9%A2%91%E7%8E%87-ASP-NET-Core/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          常见误区
+          通过IP地址限制请求频率( ASP.NET Core)
         
       </div>
     </a>
   
   
-    <a href="/2020/03/21/SOLID%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">SOLID设计原则</div>
+    <a href="/2020/03/31/HTTP%E5%8D%8F%E8%AE%AE%E7%8A%B6%E6%80%81%E7%A0%81/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">HTTP协议状态码</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -313,7 +297,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1XX系列状态码"><span class="toc-number">1.</span> <span class="toc-text">1XX系列状态码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2XX系列状态码"><span class="toc-number">2.</span> <span class="toc-text">2XX系列状态码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3XX系列状态码"><span class="toc-number">3.</span> <span class="toc-text">3XX系列状态码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4XX系列状态码"><span class="toc-number">4.</span> <span class="toc-text">4XX系列状态码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5XX系列状态码"><span class="toc-number">5.</span> <span class="toc-text">5XX系列状态码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#错误和故障"><span class="toc-number">6.</span> <span class="toc-text">错误和故障</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#误区一：结构是轻量级的类"><span class="toc-number">1.</span> <span class="toc-text">误区一：结构是轻量级的类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">2.</span> <span class="toc-text"></span></a></li></ol>
                     </div>
                 </span>
             </div>
