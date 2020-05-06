@@ -6,15 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020 | ErosionBlog</title>
+  <title>Windows Terminal的Ubuntu bash体验 | ErosionBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="ErosionBlog">
-<meta property="og:url" content="http://yoursite.com/archives/2020/index.html">
+  <meta name="description" content="Bash是我使用的主要Shell客户端。 在Windows 10上，我很喜欢使用git-bash。 但是如何在新的Windows终端中将git-bash设置为默认终端？  安装像git-bash这样的Linux样式的shell。 安装Windows终端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows Terminal的Ubuntu bash体验">
+<meta property="og:url" content="http://yoursite.com/2020/05/06/Windows-Terminal%E7%9A%84Ubuntu-bash%E4%BD%93%E9%AA%8C/index.html">
 <meta property="og:site_name" content="ErosionBlog">
+<meta property="og:description" content="Bash是我使用的主要Shell客户端。 在Windows 10上，我很喜欢使用git-bash。 但是如何在新的Windows终端中将git-bash设置为默认终端？  安装像git-bash这样的Linux样式的shell。 安装Windows终端">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2020/05/06/Windows-Terminal%E7%9A%84Ubuntu-bash%E4%BD%93%E9%AA%8C/Terminal.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/06/Windows-Terminal%E7%9A%84Ubuntu-bash%E4%BD%93%E9%AA%8C/DefaultTerminal.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/06/Windows-Terminal%E7%9A%84Ubuntu-bash%E4%BD%93%E9%AA%8C/Settings.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/06/Windows-Terminal%E7%9A%84Ubuntu-bash%E4%BD%93%E9%AA%8C/Update.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/06/Windows-Terminal%E7%9A%84Ubuntu-bash%E4%BD%93%E9%AA%8C/DefaultSchemes.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/06/Windows-Terminal%E7%9A%84Ubuntu-bash%E4%BD%93%E9%AA%8C/Run.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/06/Windows-Terminal%E7%9A%84Ubuntu-bash%E4%BD%93%E9%AA%8C/ok.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/06/Windows-Terminal%E7%9A%84Ubuntu-bash%E4%BD%93%E9%AA%8C/shell.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/06/Windows-Terminal%E7%9A%84Ubuntu-bash%E4%BD%93%E9%AA%8C/ClickMenu.png">
+<meta property="og:image" content="http://yoursite.com/2020/05/06/Windows-Terminal%E7%9A%84Ubuntu-bash%E4%BD%93%E9%AA%8C/Finally.png">
+<meta property="article:published_time" content="2020-05-06T12:49:11.000Z">
+<meta property="article:modified_time" content="2020-05-06T13:57:31.339Z">
 <meta property="article:author" content="ErosionYing">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/05/06/Windows-Terminal%E7%9A%84Ubuntu-bash%E4%BD%93%E9%AA%8C/Terminal.png">
   
     <link rel="alternative" href="/atom.xml" title="ErosionBlog" type="application/atom+xml">
   
@@ -136,211 +151,228 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Windows-Terminal的Ubuntu-bash体验" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Windows Terminal的Ubuntu bash体验
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/06/Windows-Terminal%E7%9A%84Ubuntu-bash%E4%BD%93%E9%AA%8C/" class="archive-article-date">
+
+        
+        <a href="/2020/05/06/Windows-Terminal%E7%9A%84Ubuntu-bash%E4%BD%93%E9%AA%8C/" class="archive-article-date">
   	<time datetime="2020-05-06T12:49:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-06</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/06/Windows-Terminal%E7%9A%84Ubuntu-bash%E4%BD%93%E9%AA%8C/">Windows Terminal的Ubuntu bash体验</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Bash是我使用的主要Shell客户端。 在Windows 10上，我很喜欢使用git-bash。 但是如何在新的Windows终端中将git-bash设置为默认终端？</p>
+<ul>
+<li>安装像git-bash这样的Linux样式的shell。</li>
+<li>安装Windows终端<a id="more"></a></li>
+<li>将git-bash设置为Windows终端中的默认终端</li>
+<li>使主题看起来像Ubuntu风格。</li>
+<li>允许Ctrl + V粘贴</li>
+<li>允许在目录右键单击上下文菜单中启动WT。</li>
+</ul>
+<h3 id="安装Git-Bash"><a href="#安装Git-Bash" class="headerlink" title="安装Git-Bash"></a>安装Git-Bash</h3><p>在开始之前，你必须先安装git-bash。点击这里安装：<a href="https://git-scm.com" target="_blank" rel="noopener">https://git-scm.com</a></p>
+<h2 id="安装Windows-Terminal"><a href="#安装Windows-Terminal" class="headerlink" title="安装Windows Terminal"></a>安装Windows Terminal</h2><p><img src="Terminal.png" alt=""><br>在未安装时，此处应该是获取选项，点击获取，这将会下载Windows Terminal</p>
+<p>安装之后，默认情况下会打开一个新的Power Shell会话<br><img src="DefaultTerminal.png" alt=""></p>
+<h2 id="将默认会话设置为Git-Bash"><a href="#将默认会话设置为Git-Bash" class="headerlink" title="将默认会话设置为Git-Bash"></a>将默认会话设置为Git-Bash</h2><p>要将其更改为Bash，首先打开设置页面<br><img src="Settings.png" alt=""></p>
+<p>将以下对象粘贴到list中：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">                <span class="attr">"guid"</span>: <span class="string">"&#123;11a66a21-0c86-4522-aa0d-415cce5f172c&#125;"</span>,</span><br><span class="line">                <span class="attr">"name"</span>: <span class="string">"Bash"</span>,</span><br><span class="line">                <span class="attr">"commandline"</span>: <span class="string">"bash.exe -li"</span>,</span><br><span class="line">                <span class="attr">"icon"</span> : <span class="string">"ms-appx:///ProfileIcons/&#123;574e775e-4f2a-5b96-ac1e-a2962a402336&#125;.png"</span>,</span><br><span class="line">                <span class="attr">"hidden"</span>: <span class="literal">false</span>,</span><br><span class="line">                <span class="attr">"acrylicOpacity"</span> : <span class="number">0.8</span>,</span><br><span class="line">                <span class="attr">"startingDirectory"</span> : <span class="string">"."</span>,</span><br><span class="line">                <span class="attr">"useAcrylic"</span> : <span class="literal">true</span></span><br><span class="line">            &#125;,</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
+<p>这将在Windows终端中启用bash。 但是bash不是默认值。 要更改默认值，请在此处编辑：</p>
+<p><img src="Update.png" alt=""></p>
+<p>保存设置文件，重新启动Windows Terminal，现在Bash将是默认值</p>
+<p><img src="DefaultSchemes.png" alt=""></p>
+<p>要从任何路径运行Windows终端，只需运行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wt</span><br></pre></td></tr></table></figure>
 
+<p>像这样：</p>
+<p><img src="Run.png" alt=""></p>
+<h2 id="更改终端主题以使其看起来像Ubuntu"><a href="#更改终端主题以使其看起来像Ubuntu" class="headerlink" title="更改终端主题以使其看起来像Ubuntu"></a>更改终端主题以使其看起来像Ubuntu</h2><p>为了使它看起来更像Ubuntu中的bash，请添加颜色主题：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Add custom color schemes to this array</span></span><br><span class="line">    "schemes": [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"Ubuntu"</span>,</span><br><span class="line">            <span class="attr">"foreground"</span>: <span class="string">"#EEEEEC"</span>,</span><br><span class="line">            <span class="attr">"background"</span>: <span class="string">"#2C001E"</span>,</span><br><span class="line">            <span class="attr">"black"</span>: <span class="string">"#0C0C0C"</span>,</span><br><span class="line">            <span class="attr">"red"</span>: <span class="string">"#C50F1F"</span>,</span><br><span class="line">            <span class="attr">"green"</span>: <span class="string">"#53E14E"</span>,</span><br><span class="line">            <span class="attr">"yellow"</span>: <span class="string">"#E1AC10"</span>,</span><br><span class="line">            <span class="attr">"blue"</span>: <span class="string">"#0037DA"</span>,</span><br><span class="line">            <span class="attr">"purple"</span>: <span class="string">"#A837B8"</span>,</span><br><span class="line">            <span class="attr">"cyan"</span>: <span class="string">"#3A96DD"</span>,</span><br><span class="line">            <span class="attr">"white"</span>: <span class="string">"#CCCCCC"</span>,</span><br><span class="line">            <span class="attr">"brightBlack"</span>: <span class="string">"#767676"</span>,</span><br><span class="line">            <span class="attr">"brightRed"</span>: <span class="string">"#E74856"</span>,</span><br><span class="line">            <span class="attr">"brightGreen"</span>: <span class="string">"#16C60C"</span>,</span><br><span class="line">            <span class="attr">"brightYellow"</span>: <span class="string">"#F9F1A5"</span>,</span><br><span class="line">            <span class="attr">"brightBlue"</span>: <span class="string">"#3B78FF"</span>,</span><br><span class="line">            <span class="attr">"brightPurple"</span>: <span class="string">"#B4009E"</span>,</span><br><span class="line">            <span class="attr">"brightCyan"</span>: <span class="string">"#61D6D6"</span>,</span><br><span class="line">            <span class="attr">"brightWhite"</span>: <span class="string">"#F2F2F2"</span></span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br></pre></td></tr></table></figure>
+<p>添加以下三行属性，添加的地方正是我们第一次修改默认Terminal的地方：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">                <span class="attr">"guid"</span>: <span class="string">"&#123;11a66a21-0c86-4522-aa0d-415cce5f172c&#125;"</span>,</span><br><span class="line">                <span class="attr">"name"</span>: <span class="string">"Bash"</span>,</span><br><span class="line">                <span class="attr">"commandline"</span>: <span class="string">"bash.exe -li"</span>,</span><br><span class="line">                <span class="attr">"icon"</span> : <span class="string">"ms-appx:///ProfileIcons/&#123;574e775e-4f2a-5b96-ac1e-a2962a402336&#125;.png"</span>,</span><br><span class="line">                <span class="attr">"hidden"</span>: <span class="literal">false</span>,</span><br><span class="line">                <span class="attr">"acrylicOpacity"</span> : <span class="number">0.8</span>,</span><br><span class="line">                <span class="attr">"startingDirectory"</span> : <span class="string">"."</span>,</span><br><span class="line">                <span class="attr">"useAcrylic"</span> : <span class="literal">true</span>,</span><br><span class="line">                <span class="comment">// Add this:</span></span><br><span class="line">                <span class="attr">"colorScheme"</span>: <span class="string">"Ubuntu"</span>,</span><br><span class="line">                <span class="attr">"fontFace"</span>: <span class="string">"Cascadia Code"</span>,</span><br><span class="line">                <span class="attr">"fontSize"</span>: <span class="number">12</span></span><br><span class="line">            &#125;,</span><br></pre></td></tr></table></figure>
+<p>这让我们的体验极好，就像使用Ubuntu一样使用它。</p>
+<p><img src="ok.png" alt=""></p>
+<h2 id="允许使用ctrl-c-ctrl-v复制粘贴"><a href="#允许使用ctrl-c-ctrl-v复制粘贴" class="headerlink" title="允许使用ctrl+c/ctrl+v复制粘贴"></a>允许使用ctrl+c/ctrl+v复制粘贴</h2><p>在”keybindings”Array对象中，添加以下内容：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">"keybindings":</span><br><span class="line">    [</span><br><span class="line">        &#123; <span class="attr">"command"</span>: &#123;<span class="attr">"action"</span>: <span class="string">"copy"</span>, <span class="attr">"singleLine"</span>: <span class="literal">false</span> &#125;, <span class="attr">"keys"</span>: <span class="string">"ctrl+c"</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">"command"</span>: <span class="string">"paste"</span>, <span class="attr">"keys"</span>: <span class="string">"ctrl+v"</span> &#125;</span><br><span class="line">    ]</span><br></pre></td></tr></table></figure>
+
+<h2 id="允许从右键菜单启动WindowsTerminal"><a href="#允许从右键菜单启动WindowsTerminal" class="headerlink" title="允许从右键菜单启动WindowsTerminal"></a>允许从右键菜单启动WindowsTerminal</h2><p>创建一个名为InstallWTMenu.bat的新文件。 将其内容编辑为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">reg add "HKCU\Software\Classes\Directory\shell\Open WT here\command" /d "\"%LOCALAPPDATA%\Microsoft\WindowsApps\wt.exe\" -d \"%%1\"" /f</span><br><span class="line">reg add "HKCU\Software\Classes\Directory\Background\shell\Open WT here\command" /d "\"%LOCALAPPDATA%\Microsoft\WindowsApps\wt.exe\" -d \"%%V\"" /f</span><br><span class="line">reg add "HKCU\Software\Classes\LibraryFolder\Background\shell\Open WT here\command" /d "\"%LOCALAPPDATA%\Microsoft\WindowsApps\wt.exe\" -d \"%%V\"" /f</span><br></pre></td></tr></table></figure>
+
+<p>保存它，并使用admin帐户运行它：</p>
+<p><img src="shell.png" alt=""></p>
+<p>运行它后，重新点击右键，然后将会出现一个新的选项：</p>
+<p><img src="ClickMenu.png" alt=""></p>
+<p>当您单机它时：</p>
+<p><img src="Finally.png" alt=""></p>
+<p>希望你喜欢。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/05/06/Windows-Terminal%E7%9A%84Ubuntu-bash%E4%BD%93%E9%AA%8C/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/29/%E9%80%9A%E8%BF%87IP%E5%9C%B0%E5%9D%80%E9%99%90%E5%88%B6%E8%AF%B7%E6%B1%82%E9%A2%91%E7%8E%87-ASP-NET-Core/" class="archive-article-date">
-  	<time datetime="2020-04-29T12:45:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-29</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/04/29/%E9%80%9A%E8%BF%87IP%E5%9C%B0%E5%9D%80%E9%99%90%E5%88%B6%E8%AF%B7%E6%B1%82%E9%A2%91%E7%8E%87-ASP-NET-Core/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">通过IP地址限制请求频率( ASP.NET Core)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/29/%E9%80%9A%E8%BF%87IP%E5%9C%B0%E5%9D%80%E9%99%90%E5%88%B6%E8%AF%B7%E6%B1%82%E9%A2%91%E7%8E%87-ASP-NET-Core/">通过IP地址限制请求频率( ASP.NET Core)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Git-Bash"><span class="toc-number">1.</span> <span class="toc-text">安装Git-Bash</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装Windows-Terminal"><span class="toc-number"></span> <span class="toc-text">安装Windows Terminal</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将默认会话设置为Git-Bash"><span class="toc-number"></span> <span class="toc-text">将默认会话设置为Git-Bash</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更改终端主题以使其看起来像Ubuntu"><span class="toc-number"></span> <span class="toc-text">更改终端主题以使其看起来像Ubuntu</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#允许使用ctrl-c-ctrl-v复制粘贴"><span class="toc-number"></span> <span class="toc-text">允许使用ctrl+c&#x2F;ctrl+v复制粘贴</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#允许从右键菜单启动WindowsTerminal"><span class="toc-number"></span> <span class="toc-text">允许从右键菜单启动WindowsTerminal</span></a>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/04/12/%E5%B8%B8%E8%A7%81%E8%AF%AF%E5%8C%BA/" class="archive-article-date">
-  	<time datetime="2020-04-12T15:01:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-12</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/12/%E5%B8%B8%E8%A7%81%E8%AF%AF%E5%8C%BA/">常见误区</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/31/HTTP%E5%8D%8F%E8%AE%AE%E7%8A%B6%E6%80%81%E7%A0%81/" class="archive-article-date">
-  	<time datetime="2020-03-31T06:16:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-31</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/31/HTTP%E5%8D%8F%E8%AE%AE%E7%8A%B6%E6%80%81%E7%A0%81/">HTTP协议状态码</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+  
+    <section id="comments">
+      <div id="disqus_thread"></div>
+        <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = '[object Object]'; // required: replace example with your forum shortname
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/21/SOLID%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" class="archive-article-date">
-  	<time datetime="2020-03-21T01:55:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/21/SOLID%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">SOLID设计原则</a>
-    </h1>
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+    </section>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/16/C-Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="archive-article-date">
-  	<time datetime="2020-03-16T08:34:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/16/C-Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/">C#中的Lambda表达式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/03/13/Personal-Blogging-with-hexo/" class="archive-article-date">
-  	<time datetime="2020-03-13T11:53:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/03/13/Personal-Blogging-with-hexo/">Personal Blogging with hexo</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -368,8 +400,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
