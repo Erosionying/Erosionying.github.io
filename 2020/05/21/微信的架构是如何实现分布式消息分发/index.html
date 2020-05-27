@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Web,WeChat,IM,Messging," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="我们每天的生活都离不开微信。微信基本上已经成了在中国生活的一部分。 但是，微信有些方面的功能总是看起来令人觉得有些奇怪。例如：  微信几乎是第一款需要手机扫码才能登录PC端的 微信群和微信聊天记录在切换设备后会完全无法同步 你无法得知自己是否被一个微信好友拉黑了 你不能同时在多个移动设备上同时登录微信">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信的架构是如何实现分布式消息分发?">
+<meta property="og:url" content="http://yoursite.com/2020/05/21/%E5%BE%AE%E4%BF%A1%E7%9A%84%E6%9E%B6%E6%9E%84%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E6%B6%88%E6%81%AF%E5%88%86%E5%8F%91/index.html">
+<meta property="og:site_name" content="Erosion Ying">
+<meta property="og:description" content="我们每天的生活都离不开微信。微信基本上已经成了在中国生活的一部分。 但是，微信有些方面的功能总是看起来令人觉得有些奇怪。例如：  微信几乎是第一款需要手机扫码才能登录PC端的 微信群和微信聊天记录在切换设备后会完全无法同步 你无法得知自己是否被一个微信好友拉黑了 你不能同时在多个移动设备上同时登录微信">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-05-21T04:16:35.000Z">
+<meta property="article:modified_time" content="2020-05-21T04:24:28.937Z">
+<meta property="article:author" content="ErosionYing">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="WeChat">
+<meta property="article:tag" content="IM">
+<meta property="article:tag" content="Messging">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/05/21/微信的架构是如何实现分布式消息分发/"/>
+
+
+
+
+
+  <title>微信的架构是如何实现分布式消息分发? | Erosion Ying</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Erosion Ying</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            HOME
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/21/%E5%BE%AE%E4%BF%A1%E7%9A%84%E6%9E%B6%E6%9E%84%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E6%B6%88%E6%81%AF%E5%88%86%E5%8F%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ErosionYing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Erosion Ying">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">微信的架构是如何实现分布式消息分发?</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-21T12:16:35+08:00">
+                2020-05-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>我们每天的生活都离不开微信。微信基本上已经成了在中国生活的一部分。</p>
+<p>但是，微信有些方面的功能总是看起来令人觉得有些奇怪。例如：</p>
+<ul>
+<li>微信几乎是第一款需要手机扫码才能登录PC端的</li>
+<li>微信群和微信聊天记录在切换设备后会完全无法同步</li>
+<li>你无法得知自己是否被一个微信好友拉黑了</li>
+<li>你不能同时在多个移动设备上同时登录微信</li>
+</ul>
+<a id="more"></a>
+
+<p>从产品的角度来看，这些设定看起来彷佛是在给用户制造障碍，也成了大家普遍对微信的槽点。那么，微信的团队为什么要这么设计，而为什么又不改良它的体验呢？我想或许问题并不只是产品和需求分析这么简单，而是还需要进一步探寻架构上的本质。</p>
+<p>在我生活在澳大利亚期间，我发现一件很有趣的事情：在澳大利亚，我使用微信给同样在澳大利亚的好友发送微信消息，他也可以几乎瞬间收到。假想微信在国内建立单点的服务器，那么这种性能一定不足以支撑澳大利亚内的通信。数据从澳洲抵达中国再从中国推送到澳洲至少需要500ms。而表现来看，仿佛只花了30ms就完成了一条微信消息的传递。</p>
+<p>那么这意味着这条消息很可能根本就没有去中国，而是只在澳大利亚当地就完成了收发和传递。微信在澳大利亚是单独部署有计算节点的。而这么来看，微信的服务器，应该是遍布全球各地，并没有一个中心化的服务器。微信是个分布式应用。</p>
+<p>如果微信是分布式应用，对上面几个现象就不难解释了。但是我这么猜测，必须还得建立一套完整的可行性验证，并且能够满足现有微信的所有用例，我的这个猜想才算没有错误。而为了满足完整的分布式通讯，微信至少要设计三个算法：</p>
+<ul>
+<li>服务器选择算法</li>
+<li>服务器端切换算法</li>
+<li>用户发现算法</li>
+</ul>
+<p>这三个算法，第一个服务器选择算法，可以让一台微信移动端的App定位到最合适的微信服务器。服务器端切换算法可以实现在原有服务器不再可用时，平滑的移动到新服务器上并且继续保持消息。用户发现算法则可以搜索出目标用户所在的服务器。在这三个算法建立完善的基础上，用户可以直接定位到自己需要连接的目标微信服务器，并且目标微信服务器也知道你要将消息发送的目标用户所在的服务器，然后在两台服务器之间直接点对点通信即可。</p>
+<h3 id="服务器选择算法"><a href="#服务器选择算法" class="headerlink" title="服务器选择算法"></a>服务器选择算法</h3><p>微信的服务器为了扩展方便，他们可能会在全球各地建立大量微信节点，保证任何一个地理位置的人，都有一台离他不算太远的微信服务器可连。但是，即使硬件上保证了这一点，那目标节点的用户怎么才能得知这台离他不远的服务器的IP等信息，并且知道这台服务器最合适呢？服务器选择算法中，首先就得包含一个服务器的注册与发现。而在没有中心节点的情况下，要想维持一份数据，普遍的做法是采用gossip协议。</p>
+<p>gossip协议是一种基于流行病传播方式构建的信息交换协议。它的原理是想象将我们需要传递的信息就是一种病毒，而这种的病毒R0 &gt; 1，从而它让每个个体在被感染后都平均能够再传播超过一次。那么随着时间变化，所有个体都会感染这种病毒。这种协议的优势在于去中心化，是一种分布式协议，能够在一个集群中解决传播的状态一致性问题。换句话说，如果微信有一个“可以使用的微信服务器列表”，那么每新增一台服务器，这台服务器就可以向集群传播自己的信息，而这种信息很快就会“感染”所有的微信服务器，保证最终的数据一致性。最终，每一个微信服务器都能得知完整的可用服务器列表。这向技术，也普遍应用在了DNS记录的传播。</p>
+<p>例如微信使用gossip协议维持了一份服务器清单，那么对于设备来说，只需要查询任意一台服务器就可以得到服务器列表。根据设备IP它不难得知自己的地理位置是在哪个国家哪个省，从而筛选出省内的服务器列表。再对这些服务器进行测速，或者搜索这些服务器中连接数最小的那个，就可以确定这台微信App需要连接的目标微信服务器了。<br>服务端切换算法<br>服务器选择后，我们还需要考虑目标服务器本身可能出现故障的情况，或者微信可能会撤走一台服务器。如果微信真的撤走了一台服务器，需要立即重新进行服务器选择。此时App端不再能够连接到撤走的那一台，而连接到另一台可用的好服务器上。</p>
+<p>当然除了这两种情况，我曾经经历过这件事：我在北京乘坐飞机前往新加坡。在飞机上我手机全程关机。当我抵达新加坡后，我连接新加坡的LTE后，立即启动微信，发现有一大群人给我发了微信消息。看起来是个很平常的事情，但是仔细思考：假如我在新加坡启动微信后，微信发现自己连接原有北京的微信服务器已经延迟实在是太高，触发了服务器选择算法。服务器重选后，我很快确定了要连接到新加坡的服务器。但是微信的消息并不会广播满整个分布式集群，新加坡的微信服务器实际上并无法得知我的未读消息。所以必须需要一个服务器端切换算法来实现将我在北京服务器上的未读消息同步到新加坡服务器上。</p>
+<p>例如我在飞机上执行了恢复出厂设置，我的手机并不知道我之前连接的是北京服务器的话，这个服务器切换算法，必须让新加坡服务器自主的得知：该用户在切换服务器之前连接的是哪一台，再向原有的老服务器尝试拉取消息历史就好了。</p>
+<p>分布式系统，让全计算集群能够得到一个数据的最终一致性的算法最典型的不就是gossip嘛。我们完全可以让“用户处在哪一台服务器”这个key value靠gossip传播满全集群。新加坡服务器很可能在我降落之前就已经知道了我是北京人了。当我连接它时，他直接去向北京服务器拉取我的未读消息历史，推送给我的手机就完事儿了。</p>
+<h3 id="用户发现算法"><a href="#用户发现算法" class="headerlink" title="用户发现算法"></a>用户发现算法</h3><p>那么还剩最后一个问题：我在航班中，亲朋好友给我发送微信消息的时候，他们是如何得知我在哪台服务器上呢？自然这个问题也不难回答了。我的每个亲朋好友都和我一样，都是同样的微信终端，需要靠服务器选择算法连接到距离他们较近的服务器，例如上海服务器。而用户-服务器这个key value已经广播满了微信集群，在我的飞机降落前，他们始终会先将消息发给上海服，上海服发现当地并没有安度因，安度因注册在了北京，然后立即将消息转交给北京服。此时上海服完全可以不保存这条消息。对于他来说他只是个中转传递的节点。北京服只需要暂存这个消息，当推送给我的手机App之后，它也不需要保存这条消息了。</p>
+<p>当我航班一落地，我的微信App先触发服务器选择算法，选择新加坡。新加坡当地的微信服发现一位注册在北京的用户连接了新加坡服，立即触发服务器切换算法，把我的消息历史同步。此时北京服可以删除这些消息历史了。</p>
+<p>当然，使用gossip协议来广播用户所在位置只是我的一种猜想。如果微信所有服务器形成的是一个图状的数据结构，也而完全可以利用类似路由的算法去搜索用户，相关的算法就是dijkastra算法，可以求出图中的最短路径，再按照路径发送消息。不过我猜测为了设计简洁，微信服务器与服务器之间的连接更可能是点对点。发现用户的话，又可以靠图的广度优先遍历算法。只不过，具体微信使用的是哪一个，我们在阅读源码前，觉得gossip可能性更大一些，因为它可以解释后续更多关于微信的现象。但可以肯定的是，单条消息是不会广播满整个网络的，而是只存在于需要收发的两台服务器之间，其它服务器是完全不可知的。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Web/" rel="tag"># Web</a>
+          
+            <a href="/tags/WeChat/" rel="tag"># WeChat</a>
+          
+            <a href="/tags/IM/" rel="tag"># IM</a>
+          
+            <a href="/tags/Messging/" rel="tag"># Messging</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/08/Some-errors-of-installing-docker/" rel="next" title="Some errors of installing docker">
+                <i class="fa fa-chevron-left"></i> Some errors of installing docker
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/27/Web%E5%BA%94%E7%94%A8%E4%B8%AD%E7%9A%84IOC%E4%B8%8EDI/" rel="prev" title="Web应用中的IOC与DI">
+                Web应用中的IOC与DI <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpeg"
+                alt="ErosionYing" />
+            
+              <p class="site-author-name" itemprop="name">ErosionYing</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Erosionying" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:erosionzhu@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Friend Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://anduin.aiursoft.com/" title="Anduin Xue" target="_blank">Anduin Xue</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器选择算法"><span class="nav-number">1.</span> <span class="nav-text">服务器选择算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户发现算法"><span class="nav-number">2.</span> <span class="nav-text">用户发现算法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ErosionYing</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+</body>
+</html>
