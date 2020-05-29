@@ -87,7 +87,7 @@
 <meta property="og:description" content="结构是轻量级的类？引用类型保存在堆上，值类型保存在栈上？你是否真正了解这些？">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-04-12T15:01:17.000Z">
-<meta property="article:modified_time" content="2020-05-21T04:20:01.097Z">
+<meta property="article:modified_time" content="2020-05-29T03:01:39.392Z">
 <meta property="article:author" content="ErosionYing">
 <meta property="article:tag" content="Program">
 <meta name="twitter:card" content="summary">
@@ -338,9 +338,23 @@
 <a id="more"></a>
 <h2 id="误区一：结构是轻量级的类"><a href="#误区一：结构是轻量级的类" class="headerlink" title="误区一：结构是轻量级的类"></a>误区一：结构是轻量级的类</h2><ul>
 <li>有人认为值类型不能或不应该存在方法或其它有意义的行为，应该做为一种简单的数据类型来使用，它只负责存储数据的工作，理所当然只应该有public字段和简单属性，这个想法貌似很理所当然，但是很不幸，对于一些特殊数据超出这种思想的范围，例如常见的DateTime类型，该类型应当被当作存储数字和字符的一个基本单位来使用，但是它也理所应当被赋予对本身进行计算的能力。总之，具体应该如何决定，应取决于需要的是值类型还是引用类型。(一个值有没有意义并不是值本身决定的，这取决于你对数值的看法。计算机本身只存储二进制，对于计算机来说无论是指令还是数据来说都没有区别，至于如何分别这取决于CPU中的寄存器，寄存器又取决于人的指令指挥……    —扯得好像有点多)</li>
-<li>还有些人认为值类型之所以显得比引用类型”轻”是因为行能。但是事实上在某些情况下，值类型很”能干”，它们不需要垃圾回收(除非被装箱)，不会因为类型表示而产生开销，也不需要解引用等复杂操作。但是进行业务工作时，引用类型略胜一筹，传递参数、赋值、返回值和执行类似操作时，只需要<h2 id=""><a href="#" class="headerlink" title=""></a></h2></li>
+<li>还有些人认为值类型之所以显得比引用类型”轻”是因为行能。但是事实上在某些情况下，值类型很”能干”，它们不需要垃圾回收(除非被装箱)，不会因为类型表示而产生开销，也不需要解引用等复杂操作。但是进行业务工作时，引用类型略胜一筹，传递参数、赋值、返回值和执行类似操作时，只需要复制4字节或8字节(这取决于是32位还是64位的CLR)，而不是复制全部数据。假定ArrayList是一个所谓的”纯”值类型，那么将一个ArrayList表达式传给一个方法时，就得复制他的所有数据，在所有情况下，性能问题都不是根据这种判断来决定的。瓶颈从来都不是想当然的，在你根据性能进行设计之前，需要衡量不同的选择。</li>
+<li>值得注意的是，将这两者相结合也不能解决问题：类型(不管是类还是结构)拥有多少方法并不重要，每个实例所占用的内存不会受到影响。(代码本身会消耗内存，但这只会发生一次，而不是每个实例都发生。)</li>
 </ul>
-<p>如我的代码或博客中有任何错误或者有任何想咨询的问题都可以联系我:Email:<a href="mailto:erosionzhu@outlook.com">erosionzhu@outlook.com</a></p>
+<h2 id="误区二：引用类型保存在堆上，值类型保存在栈上"><a href="#误区二：引用类型保存在堆上，值类型保存在栈上" class="headerlink" title="误区二：引用类型保存在堆上，值类型保存在栈上"></a>误区二：引用类型保存在堆上，值类型保存在栈上</h2><ul>
+<li>这段话的第一部分是正确的-引用类型的实例总是在堆上创建。但是第二部分就有问题了。变量的值是在它声明的位置存储的。所以，假定一个类中有一个int类型的实例变量，那么在这个类的任何对象中，该变量的值总是和对象中的其他数据一起，也就是堆上。只有局部变量(方法内部声明的变量)和方法参数在栈上。对于C#2以上版本来说，很多局部变量并不完全存放在栈中。</li>
+</ul>
+<h2 id="误区三：对象在C-中默认是通过引用传递的"><a href="#误区三：对象在C-中默认是通过引用传递的" class="headerlink" title="误区三：对象在C#中默认是通过引用传递的"></a>误区三：对象在C#中默认是通过引用传递的</h2><ul>
+<li>这或许是传播的最广的一个误区了，同样，说这句话的人一般(但不总是)知道C#实际的行为是什么，但不知道”引用传递”的真正意思是什么。可惜，那些真正知道引用传递是什么意思的人，在听到这句话时就会被完全搞糊涂。</li>
+<li>“引用传递”的正式定义相当复杂，要涉及左值和类似的计算机科学术语。但最重要的一点是，加入以引用床底的方式来床送一个变量，那么调用的方法可以通过更改其参数值，来改变调用者的变量值。现在请记住，引用类型变量的值是引用，而不是对象本身。不需要按引用来传递参数本身，就可以更改该参数引用的那个对象的内容。假如，下面的方法更改了相关对象StringBuilder的内容，但调用者的表达式引用的仍然是之前的那个对象：</li>
+</ul>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AppendHello</span>(<span class="params">StringBuilder builder</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    builder.Append(<span class="string">"Hello"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>调用这个方法时，参数值(对StringBuilder的一个引用)是以值传递的方式传递的。如果想在方法内部更改builder变量的值-如执行builder=null;语句，调用者看不见这个改变，刚好和错误相反。</li>
+<li>有趣的是，在这种错误说法中，不仅”引用传递”的说法有误，而且”对象传递”的说法也存在问题。无论是引用传递还是值传递，永远不会传递对象本身。设计一个引用类型时，要么以”引用传递”的方式传递变量，要么以”传值”的方式传递参数值(引用)。最起码，这回答了”但null做为一个传值参数的值来使用时会发生什么”的问题。假如传递的是对象，这时就会出问题，一位内没有一个对象可供传递!相反，null引用会采用和其他引用一样的”值传递”的方式传递。</li>
+</ul>
+<p>该博客内容来源于《深入理解C#》</p>
 
       
     </div>
@@ -549,7 +563,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#误区一：结构是轻量级的类"><span class="nav-number">1.</span> <span class="nav-text">误区一：结构是轻量级的类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">2.</span> <span class="nav-text"></span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#误区一：结构是轻量级的类"><span class="nav-number">1.</span> <span class="nav-text">误区一：结构是轻量级的类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#误区二：引用类型保存在堆上，值类型保存在栈上"><span class="nav-number">2.</span> <span class="nav-text">误区二：引用类型保存在堆上，值类型保存在栈上</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#误区三：对象在C-中默认是通过引用传递的"><span class="nav-number">3.</span> <span class="nav-text">误区三：对象在C#中默认是通过引用传递的</span></a></li></ol></div>
             
 
           </div>
