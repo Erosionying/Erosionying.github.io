@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,JDK,Tomcat,Web,IDE,Maven," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="最近接触JavaWeb开发，发现这个东西让我很迷，什么JRE、JDK、JAVA EE，被一堆名词绕的晕头转向(.NET Core大法好)。最终找到了一些较为清真的配置方法。 Warning：Visual Studio Code写Java真的不是很舒适……本人(Visual Studio系列忠实用户)踩坑，所以还是推荐使用IDEA吧(本人使用的是IDEA 2020.2.2)。 Warning：Ope">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JDK14+Tomcat10+Maven打造JavaWeb清真开发环境">
+<meta property="og:url" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/index.html">
+<meta property="og:site_name" content="Erosion Ying">
+<meta property="og:description" content="最近接触JavaWeb开发，发现这个东西让我很迷，什么JRE、JDK、JAVA EE，被一堆名词绕的晕头转向(.NET Core大法好)。最终找到了一些较为清真的配置方法。 Warning：Visual Studio Code写Java真的不是很舒适……本人(Visual Studio系列忠实用户)踩坑，所以还是推荐使用IDEA吧(本人使用的是IDEA 2020.2.2)。 Warning：Ope">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/CreateEnvirment.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/Java-home.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/JRE-home.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/CreateEnvirment.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/Catalina-home.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/Catalina-base.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/CreateEnvirment.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/Maven-home.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/M2-home.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/MavenSettings.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/Path.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/ConfigPath.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/JavaConfigTest.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/MavenConfigTest.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/TomcatStart.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/Tomcat.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/TomcatROOT.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/TomcatSetEncoding.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/Settings.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/Plugins.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/CloseProject.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/IDEA.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/IDEASettings.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/IDEAConfigMaven.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/Repository.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/CreateProject.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/MavenCreateProject.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/ProjectInfo.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/Finish.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/JAVAWEBProject.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/Configuration.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/AddTomcat.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/ConfigTomcat.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/AddArtifact.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/Artifact.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/TomcatFinish.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/JavaWEBConfFInish.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/JavaWebRun.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/HelloJsp.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/CreateDIR.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/DIRName.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/MarkDIR.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/NewPackage.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/PackageName.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/Directory.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/CreateServlet.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/Servlet.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/Example.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/Jakarta1.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/Jakarta2.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/Jakarta3.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/Pomconfig.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/MavenDepend.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/HelloServlet.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/WebXml.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/ProjectFinish.jpg">
+<meta property="article:published_time" content="2020-09-24T02:57:36.000Z">
+<meta property="article:modified_time" content="2020-09-24T16:35:59.113Z">
+<meta property="article:author" content="ErosionYing">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="JDK">
+<meta property="article:tag" content="Tomcat">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="IDE">
+<meta property="article:tag" content="Maven">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/CreateEnvirment.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven打造JavaWeb清真开发环境/"/>
+
+
+
+
+
+  <title>JDK14+Tomcat10+Maven打造JavaWeb清真开发环境 | Erosion Ying</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Erosion Ying</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            HOME
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ErosionYing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Erosion Ying">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JDK14+Tomcat10+Maven打造JavaWeb清真开发环境</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-09-24T10:57:36+08:00">
+                2020-09-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaWeb/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaWeb</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近接触JavaWeb开发，发现这个东西让我很迷，什么JRE、JDK、JAVA EE，被一堆名词绕的晕头转向(.NET Core大法好)。最终找到了一些较为清真的配置方法。</p>
+<p>Warning：Visual Studio Code写Java真的不是很舒适……本人(Visual Studio系列忠实用户)踩坑，所以还是推荐使用IDEA吧(本人使用的是IDEA 2020.2.2)。</p>
+<p>Warning：OpenJDK与OracleJDK并不相同……</p>
+<p>Warning：Tomcat10中已经对javax包进行了重命名，更名为Jakarta。</p>
+<p>Warning：config等目录根据个人喜好配置，做法都是一样的。</p>
+<h2 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h2><h3 id="下载-JDK"><a href="#下载-JDK" class="headerlink" title="下载 JDK"></a>下载 JDK</h3><p>下载JDK，注意JDK分为OpenJDK和OracleJDK，区别如下：</p>
+<ul>
+<li>两者的授权协议不同，OpenJDK采用GPL协议放出，而OracleJDK则采用JRL放出；</li>
+<li>OpenJDK不包含Deployment部署功能</li>
+<li>3、OpenJDK源代码不完整。</li>
+</ul>
+<p>本人使用的是OracleJDK，OracleJDK14下载链接：<a href="https://download.oracle.com/otn-pub/java/jdk/14.0.2+12/205943a0976c4ed48cb16f1043c5c647/jdk-14.0.2_windows-x64_bin.exe?AuthParam=1598841872_b08904c3928a9a8fb8184214a7011578" target="_blank" rel="noopener">https://download.oracle.com/otn-pub/java/jdk/14.0.2+12/205943a0976c4ed48cb16f1043c5c647/jdk-14.0.2_windows-x64_bin.exe?AuthParam=1598841872_b08904c3928a9a8fb8184214a7011578</a><br>记得下载zip等压缩包版本(别的我也没用过)，作者下载的时候是最新版JDK，你看到这篇博客可能并非最新版，如果有喜欢学习新知识的同学，可以尝试使用最新版。</p>
+<h3 id="配置JDK"><a href="#配置JDK" class="headerlink" title="配置JDK"></a>配置JDK</h3><p>我以前一直不理解JAVA_HOME等单独配置环境变量的作用(环境变量过长字符除外)，后来我才发现这里是使用约定大于配置的思想，很多应用做了一个约定，规定这些环境名、环境值该怎么写(emmmmmm……)</p>
+<p>推荐创建一个config文件夹来专门存放各种关于环境配置的文件夹(个人习惯，这样电脑文件很整洁)</p>
+<p>将下载的JDK解压到创建的config文件中，然后打开配置环境变量页面。</p>
+<p><img src="CreateEnvirment.jpg" alt="&quot;Create Envirment&quot;"></p>
+<p>添加JAVA_HOME环境，路径就是解压后的JDK路径</p>
+<p><img src="Java-home.jpg" alt="&quot;Java Home&quot;"></p>
+<p>如果你是JDK8以及JDK8之前的版本，此处应该不同，参考Tomcat闪退错误清单，里边有详细解释。</p>
+<p>JDK8之后的JDK已经不再耦合JRE，而是定制JRE，此处不详述(你可以发现JDK目录中并不包含jre文件夹)，将JRE_HOME设置为JDK路径即可。</p>
+<p><img src="JRE-home.jpg" alt="&quot;JRE Home&quot;"></p>
+<p>JDK8及之前版本配置<br>JDK8以及之前的版本的JDK目录中包含jre文件夹，将该目录设置为环境变量即可，一般情况下，是JAVA_HOME配置目录后加\jre。</p>
+<p>JDK配置完毕</p>
+<h2 id="TOMCAT"><a href="#TOMCAT" class="headerlink" title="TOMCAT"></a>TOMCAT</h2><h3 id="下载Tomcat-10"><a href="#下载Tomcat-10" class="headerlink" title="下载Tomcat(10)"></a>下载Tomcat(10)</h3><p>下载Tomcat，Tomcat10下载链接：<a href="https://mirrors.bfsu.edu.cn/apache/tomcat/tomcat-10/v10.0.0-M8/bin/apache-tomcat-10.0.0-M8-windows-x64.zip" target="_blank" rel="noopener">https://mirrors.bfsu.edu.cn/apache/tomcat/tomcat-10/v10.0.0-M8/bin/apache-tomcat-10.0.0-M8-windows-x64.zip</a></p>
+<h3 id="配置Tomcat服务器"><a href="#配置Tomcat服务器" class="headerlink" title="配置Tomcat服务器"></a>配置Tomcat服务器</h3><p>将Tomcat的压缩包解压到创建的config文件夹中，配置环境变量，新建环境变量：</p>
+<p><img src="CreateEnvirment.jpg" alt="&quot;Create Envirment&quot;"></p>
+<p>这两个是启动Tomcat所需要的，不详述(写起来太多啦)，这背后还有些小故事，可以百度……<br>配置CATALINA_HOME：</p>
+<p><img src="Catalina-home.jpg" alt="&quot;Catalina home&quot;"></p>
+<p>配置CATALINA-BASE：</p>
+<p><img src="Catalina-base.jpg" alt="&quot;Catalina base&quot;"></p>
+<h2 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h2><h3 id="下载Maven"><a href="#下载Maven" class="headerlink" title="下载Maven"></a>下载Maven</h3><p>Maven3.6.3下载链接<a href="https://mirrors.bfsu.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip" target="_blank" rel="noopener">https://mirrors.bfsu.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip</a></p>
+<h3 id="配置Maven"><a href="#配置Maven" class="headerlink" title="配置Maven"></a>配置Maven</h3><p>将压缩包解压到config目录中，配置环境变量，新建环境变量：</p>
+<p><img src="CreateEnvirment.jpg" alt="&quot;Create Envirment&quot;"></p>
+<p>配置MAVEN_HOME：</p>
+<p><img src="Maven-home.jpg" alt="&quot;Maven home&quot;"></p>
+<p>使用M2_HOME是因为maven版本原因，M2_HOME是maven2延续下来的名字，不详述，想了解背后故事可以百度……<br>配置M2_HOME:</p>
+<p><img src="M2-home.jpg" alt="&quot;M2 home&quot;"></p>
+<p>打开Maven目录下的conf/settings.xml文件，在mirrors使用以下配置，(如果你有外网环境也可以不需要配置)，此处用的是阿里云Maven库：</p>
+<p>Warning：阿里云更新了仓库所在位置，很多网上的博客坑很多，我配置的日期是2020年9月份，可能以后这个配置地址也会变，想要使用最精准的库，还是得看阿里云的文档！！！</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirrors</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>aliyunmaven<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>AliyunPublicRepository<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://maven.aliyun.com/repository/public<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirrors</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="MavenSettings.jpg" alt="&quot;Maven Settings&quot;"></p>
+<h2 id="最终配置"><a href="#最终配置" class="headerlink" title="最终配置"></a>最终配置</h2><h3 id="Path配置"><a href="#Path配置" class="headerlink" title="Path配置"></a>Path配置</h3><p>上边的配置有些是为了将环境变量配置到最终目录，Path环境变量最终配置如下：</p>
+<p><img src="Path.jpg" alt="&quot;Path&quot;"></p>
+<p><img src="ConfigPath.jpg" alt="&quot;Config Path&quot;"></p>
+<p>因为我们配置了这些可复用的环境变量，所以 一行一行地复制下边的变量到你的环境变量中即可。</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="variable">%JAVA_HOME%</span>\bin</span><br><span class="line"><span class="variable">%JRE_HOME%</span></span><br><span class="line"><span class="variable">%JRE_HOME%</span>\bin</span><br><span class="line"><span class="variable">%MAVEN_HOME%</span>\bin</span><br><span class="line"><span class="variable">%CATALINA_HOME%</span>\bin</span><br></pre></td></tr></table></figure>
+
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p>在此之前，请确保环境变量已经完全配置完毕，保存，并将计算机重启，以免可能出现意外错误。</p>
+<h3 id="验证JDK"><a href="#验证JDK" class="headerlink" title="验证JDK"></a>验证JDK</h3><p>打开你喜欢的终端，输入以下内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">java --help</span><br></pre></td></tr></table></figure>
+
+<p>这将会产生以下输出(因版本不同可能会出现不同区别，但大致相同)，如果出现command not found输出，请检查环境变量。</p>
+<p><img src="JavaConfigTest.jpg" alt="&quot;Java Config Test&quot;"></p>
+<h3 id="验证Maven"><a href="#验证Maven" class="headerlink" title="验证Maven"></a>验证Maven</h3><p>在终端中，输入以下内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mvn --help</span><br></pre></td></tr></table></figure>
+
+<p>这将会产生以下输出(因版本不同可能会出现不同区别，但大致相同)，如果出现command not found输出，请检查环境变量。</p>
+<p><img src="MavenConfigTest.jpg" alt="&quot;Maven Config Test&quot;"></p>
+<h3 id="验证Tomcat"><a href="#验证Tomcat" class="headerlink" title="验证Tomcat"></a>验证Tomcat</h3><p>在终端中，输入以下内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">startup.bat</span><br></pre></td></tr></table></figure>
+
+<p>这将会产生以下输出(因版本不同可能会出现不同区别，但大致相同)，如果出现command not found输出，请检查环境变量。</p>
+<p>Friendly Reminder：这一步将会自动打开新的Tomcat窗口显示服务器正在启动。</p>
+<p><img src="TomcatStart.jpg" alt="&quot;Tomat Config Test&quot;"></p>
+<p>打开的Tomcat命令行窗口，这说明Tomcat配置是成功的：</p>
+<p>Warning：你很有可能发现这里是乱码的，我们需要更改默认配置，本段最后给出配置方法</p>
+<p><img src="Tomcat.jpg" alt="&quot;Tomcat Start&quot;"></p>
+<p>如果出现Tomcat闪退的情况，请查看我的Tomcat闪退错误清单那篇博客。</p>
+<p>打开浏览器，输入：<a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a>，这将会打开以下网页；</p>
+<p><img src="TomcatROOT.jpg" alt="&quot;Tomcat ROOT Project&quot;"></p>
+<p>解决控制台乱码问题：</p>
+<p>打开Tomcat目录/conf/logging.properties文件，使用文本编辑器编辑它。</p>
+<p><img src="TomcatSetEncoding.jpg" alt="&quot;Tomcat ROOT Project&quot;"></p>
+<p>将此处修改为GBK，保存该文件，重启计算机(避免玄学错误)，重新打开Tomcat乱码问题应该已经得到解决。</p>
+<h2 id="IDEA"><a href="#IDEA" class="headerlink" title="IDEA"></a>IDEA</h2><h3 id="安装IDEA"><a href="#安装IDEA" class="headerlink" title="安装IDEA"></a>安装IDEA</h3><p>安装IDEA，使用了几天2020版本(2020.2.2)体验还可以，推荐使用Ultimate版本(功能比Community版本更全)听说stu版本是免费的，不过我没用过……如果是在校学生，可以申请免费Ultimate使用资格(真香，我酸了)，可以使用破解安装包，这个各位同学还是去百度一些做法吧，这里不便阐明。</p>
+<h3 id="配置IDEA主题"><a href="#配置IDEA主题" class="headerlink" title="配置IDEA主题"></a>配置IDEA主题</h3><p>我是暗黑系风格追求者(我用的编辑器、IDE都是暗黑系)，所以使用IDEA怎么能没点暗黑系风格呢？</p>
+<p>点击File =&gt; 选择Settings：</p>
+<p><img src="Settings.jpg" alt="&quot;Settings&quot;"></p>
+<p>选择Plugins =&gt; Marketplace，搜索 Material Theme UI：</p>
+<p><img src="Plugins.jpg" alt="&quot;Plugins&quot;"></p>
+<p>点击INSTALL 安装，刚好下边有 Atom Material Icons，我们顺便一起安装，没有的话搜索安装也是一样的，安装过后会提示重启IDEA。重启IDEA就可以看到效果……</p>
+<h3 id="配置IDEA开发环境"><a href="#配置IDEA开发环境" class="headerlink" title="配置IDEA开发环境"></a>配置IDEA开发环境</h3><p>点击启动IDEA，如果有项目在IDEA中运行可以点击File =&gt; Close Project 选项，这将关闭IDEA中的项目退出到初始页面。</p>
+<p><img src="CloseProject.jpg" alt="&quot;Close Project&quot;"></p>
+<p>以下是IDEA的初始界面，点击Configure，选择settings：</p>
+<p><img src="IDEA.jpg" alt="&quot;IDEA&quot;"></p>
+<p><img src="IDEASettings.jpg" alt="&quot;IDEA Settings&quot;"></p>
+<p>Build Execution Deployment菜单下有一个Maven选项，点击Maven，配置Maven home directory 和 User settings file以及Local Repository：</p>
+<p><img src="IDEAConfigMaven.jpg" alt="&quot;Default Maven Config&quot;"></p>
+<p>Maven Home Directory：这是Maven主目录，应与上边配置的MAVEN_HOME是同一个目录，填写一样即可。</p>
+<p>User Settings File：<br>在Maven目录下的conf文件夹中存放着settings.xml文件，这是用户Maven的xml文件(我好像是在说废话)</p>
+<p>Local Repository：<br>这是Maven的本地仓储，所有Maven下载的包都会被存放在这里，Maven本身是没有这个文件夹的，我们需要手动创建文件夹，然后命名为maven-repo</p>
+<p><img src="Repository.jpg" alt="&quot;Maven Local Repository&quot;"></p>
+<p>点击Apply然后点击OK退出IDEA的初始界面。</p>
+<h3 id="使用IDEA创建JAVA-WEB项目"><a href="#使用IDEA创建JAVA-WEB项目" class="headerlink" title="使用IDEA创建JAVA WEB项目"></a>使用IDEA创建JAVA WEB项目</h3><p>Friendly Reminder：使用mvn命令行创建的WEB项目一样很干净，但大多数人貌似不太喜欢终端……所以我还是按大众的方法来吧：</p>
+<p>点击New Project：<br><img src="CreateProject.jpg" alt="&quot;Create Project&quot;"></p>
+<p>选择Maven，勾选Create From Archetype，找到后缀为webapp的项目</p>
+<p>Warning：这里可以发现有两个webapp，我们可以看到有一个是maven-archetype-webapp，很显然我们需要maven的项目模板，点击选中它。</p>
+<p><img src="MavenCreateProject.jpg" alt="&quot;Create Project&quot;"></p>
+<p>点击NEXT，来到JAVA Web 所谓的GAV界面</p>
+<p>Location表示本地存储位置，可以自己选择，但通常我不会去更改默认存储位置，要统一管理这些项目文件，这样更整洁不是吗？</p>
+<p>G：GroupID =&gt; 可以认为是项目的归属，一般以com/cn/…..打头，每个都有不同含义，不详述，假设该项目归属Aiursoft，那么就可以这样写：com.aiursoft</p>
+<p>A：ArtifactID =&gt; 这个是项目名称，而且通过更改Name选项，会发现ArtifactID也会跟随更改。</p>
+<p>V：Version =&gt; 版本……不详述，想了解可以百度</p>
+<p><img src="ProjectInfo.jpg" alt="&quot;Project Information&quot;"></p>
+<p>点击NEXT，这里如果你配置了前几步Configure =&gt; settings 这个地方的Maven并且成功的话，那么这里应该是你的Maven配置，而不是系统默认配置：</p>
+<p><img src="Finish.jpg" alt="&quot;Finish&quot;"></p>
+<p>点击FINISH，MAVEN将会帮助你构建项目……</p>
+<h2 id="JAVA-WEB-Project"><a href="#JAVA-WEB-Project" class="headerlink" title="JAVA WEB Project"></a>JAVA WEB Project</h2><p>创建出来的界面大概长这个样子：</p>
+<p><img src="JAVAWEBProject.jpg" alt="&quot;Java Web Project&quot;"></p>
+<p>我们应该最先关注下方终端提示，看到BUILD SUCCESS表示项目构建完成。</p>
+<ul>
+<li><p>最右方Maven是IDEA内置的Maven控制台，点击Dependencies下拉框可以看到我们项目的依赖，还有一些依赖树等等功能可以使用。</p>
+</li>
+<li><p>最左边是Maven创建的很干净的JavaWEB项目结构</p>
+</li>
+<li><p>中间是代码编辑区域，可以看到中间区域IDEA自动打开了pom.xml文件这是管理整个WEB项目的核心配置文件build以及依赖的添加都可以在此文件中更改。</p>
+</li>
+</ul>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>点击Run =&gt; Edit Configuration…或右上角ADD CONFIGURATION：</p>
+<p><img src="Configuration.jpg" alt="&quot;Configuration&quot;"></p>
+<p>点击+号，找到Tomcat Server选项下的Local选项点击，然后点击右下角OK，添加完成。</p>
+<p>Tomcat Local：表示本地Tomcat服务器 Remote 表示远程Tomcat服务器，很显然我们需要本地Tomcat服务器</p>
+<p><img src="AddTomcat.jpg" alt="&quot;Add Tomcat&quot;"></p>
+<p>选中我们创建好的服务器，只需要关注我箭头标记的选项就可以了：</p>
+<ul>
+<li>Name：表示服务器启动时候的名称，如果没有强迫症(因为这个服务器名字还带版本号确实有点别扭)默认就可以。</li>
+<li>URL：表示服务器默认地址</li>
+<li>JRE：此处默认应该是项目使用的JRE，如果发现不是，可以更改为自己的JRE，就是上边配置的JRE_HOME那个路径</li>
+<li>HTTP port：默认就是Tomcat的8080端口，如果有端口冲突的情况，请更改，如果没有则默认就可以。</li>
+</ul>
+<p>以上选项检查完毕，点击FIX或者点击菜单栏的Deployment：</p>
+<p><img src="ConfigTomcat.jpg" alt="&quot;Config Tomcat&quot;"></p>
+<p>点击右边的+号选择Artifact</p>
+<p><img src="AddArtifact.jpg" alt="&quot;Add Artifact&quot;"></p>
+<p>这弹出了一个对话框让我们做选择，选项是 项目名:war  以及项目名:exploded 这是选择我们希望使用哪种方式打包该WEB项目：</p>
+<ul>
+<li>war：项目将以war包的形式加载进Tomcat服务器中，不支持热部署</li>
+<li>war exploded：项目将以war包的形式加载进Tomcat服务器中，支持热部署</li>
+</ul>
+<p>很显然我们现在选择哪个都是可以的，我这里就选择war吧。</p>
+<p>不知道什么是热部署的小伙伴，可以百度……</p>
+<p>点击OK，完成配置</p>
+<p><img src="Artifact.jpg" alt="&quot;Artifact&quot;"></p>
+<p>可以发现Deploy at the server startup列表下多了一个 项目名:war 的一个选项，如果你勾选了 项目名:war exploded这个选项，那么应该是   项目名:war exploded  ，两者都是可以正常启动的，只是热部署与不是热部署的区别</p>
+<p>哦对，还有就是下边的Application Context不一样，这个是项目的根访问路径，你选择了war那么应该默认是：项目名_war  预期相反的是：项目名_war_exploded 。这个路径是可以更改的。因为是演示项目，所以我也就不更改了。</p>
+<p>点击OK，完成配置</p>
+<p><img src="TomcatFinish.jpg" alt="&quot;Tomcat Config Finish&quot;"></p>
+<p>可以看到我们的项目启动栏旁边已经有绿色的小三角了，这表明我们已经配置完成了</p>
+<p><img src="JavaWEBConfFInish.jpg" alt="&quot;JAVA WEB Config Finish&quot;"></p>
+<h2 id="启动项目"><a href="#启动项目" class="headerlink" title="启动项目"></a>启动项目</h2><p>使用快捷键Ctrl + F5或者点击那个绿色的小三角或者点击上方菜单栏中的Run =&gt; Run ‘Tomcat …..’ 这个应该是你刚才配置的Tomcat服务器，稍等服务器启动，IDEA会自动打开我们刚才配置的Default启动浏览器，或者手动打开浏览器，输入<a href="http://localhost:8080/hello_war/" target="_blank" rel="noopener">http://localhost:8080/hello_war/</a> 可以看到页面上输出了一个Hello World。</p>
+<p><img src="JavaWebRun.jpg" alt="&quot;Java Web Runing&quot;"></p>
+<p>关闭浏览器，关掉IDEA中的Tomcat服务器(绿色小三角旁边的红色小方块)，打开项目目录/src/main/webapp/index.jsp</p>
+<p><img src="HelloJsp.jpg" alt="&quot;Hello Jsp Page&quot;"></p>
+<p>可以发现index.jsp中的内容正是Hello World。</p>
+<h2 id="创建并运行Servlet"><a href="#创建并运行Servlet" class="headerlink" title="创建并运行Servlet"></a>创建并运行Servlet</h2><p>在此之前我不妨先说说目录结构及文件</p>
+<ul>
+<li>src：写过项目的人应该都知道src表示包含的意思，我们写的源代码一般都放在这个文件夹中</li>
+<li>target：运行时生成的文件夹，该文件夹中保存了项目真实文件、项目打包之后的war包</li>
+<li>pom.xml：Maven核心配置文件，依赖项等都在此配置</li>
+</ul>
+<p>在src/main下创建文件夹并命名为java，该文件夹将存放我们的java源文件</p>
+<p><img src="CreateDIR.jpg" alt="&quot;Create Directory&quot;"><br><img src="DIRName.jpg" alt="&quot;Directory Name&quot;"></p>
+<p>将其文件夹标记为sources文件夹</p>
+<p><img src="MarkDIR.jpg" alt="&quot;Mark Directory&quot;"></p>
+<p>在java文件夹下右键 =&gt; new =&gt; package 起一个名字，最好和项目GroupID一致+你要创建的文件夹中存放的类型(这是我的个人习惯)，比如我们这里准备存放servlet，就可以采用com.aiursoft.servlet</p>
+<p><img src="NewPackage.jpg" alt="&quot;New Package&quot;"><br><img src="PackageName.jpg" alt="&quot;Mark Directory&quot;"></p>
+<p>更改完成的项目目录结构如下：</p>
+<p><img src="Directory.jpg" alt="&quot;Project Directory&quot;"></p>
+<p>右键点击刚创建的package，new =&gt; Java Class：<br>命名规则最好以类名+Servlet的方式命名，比如我想创建一个Hello Servlet，那么我创建的Java文件名称就应该是HelloServlet.java，命名过程我就不再重复……</p>
+<p><img src="CreateServlet.jpg" alt="&quot;Create Servlet&quot;"></p>
+<p>创建好的Java文件如下，这是一个很普通的Java类：</p>
+<p><img src="Servlet.jpg" alt="&quot;Create Servlet&quot;"></p>
+<p>我们需要对其做一些更改，使其变成Servlet。可以继承HttpServlet类来达到这一目的，但是很显然我们没有所需要的依赖，我们需要下载一些依赖项。</p>
+<p>Warning：寻找最合适的依赖项很简单，打开Tomcat目录/webapps/examples/servlets这里边有很多Servlet模板，在这里边寻找的依赖才是最合适的。</p>
+<p>假设我们打开helloworld.html这个文件可以看到这里边引用了java.io.<em>;如果你是Tomcat10的用户，那么你会惊奇的发现居然引用了 Jakarta.servlet.\</em>; 而并不是引用javax。</p>
+<p><img src="Example.jpg" alt="&quot;Example&quot;"></p>
+<p>Tomcat10对javax包进行了重命名，重命名为Jakarta，(网上资料少之又少)这个玩意儿哪里去找呢？打开<a href="https://mvnrepository.com/" target="_blank" rel="noopener">https://mvnrepository.com/</a>搜索：Jakarta.servlet，结果如下</p>
+<p>点击Jakarta Servlet</p>
+<p><img src="Jakarta1.jpg" alt="&quot;Jakarta&quot;"></p>
+<p>选择版本：M1 M2我都测试过都是可以正常使用的：</p>
+<p><img src="Jakarta2.jpg" alt="&quot;Jakarta&quot;"></p>
+<p>复制Maven框中的内容：</p>
+<p><img src="Jakarta3.jpg" alt="&quot;Jakarta&quot;"></p>
+<p>将内容复制到项目的pom.xml中的dependencies标签下，点击Maven控制台的刷新按钮</p>
+<p><img src="Pomconfig.jpg" alt="&quot;Pom Configuration&quot;"></p>
+<p>可以看到依赖已经被更改</p>
+<p><img src="MavenDepend.jpg" alt="&quot;Maven Depend injection&quot;"></p>
+<p>编写HelloServlet类，修改代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintWriter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        resp.setContentType(<span class="string">"text/html"</span>);</span><br><span class="line">        PrintWriter writer = resp.getWriter();</span><br><span class="line">        writer.print(<span class="string">"&lt;h1&gt;This is my Hello Servlet!!!&lt;h1&gt;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="HelloServlet.jpg" alt="&quot;Maven Depend injection&quot;"></p>
+<p>打开项目的web.xml文件，在web-app标签下增加servlet配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.aiursoft.servlet.HelloServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/hello<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>servlet：表示配置的本地servlet</p>
+</li>
+<li><p>servlet-name：主要目的是将servlet与servlet-mapping关联起来，servlet下的servlet-name与servlet-mapping下的servlet-name要相同</p>
+</li>
+<li><p>servlet-class：表示Servlet所处的包路径</p>
+</li>
+<li><p>servlet-mapping：表示真实文件和服务器需要的文件之前的映射</p>
+</li>
+<li><p>servlet-name：对应servlet中servlet-name</p>
+</li>
+<li><p>url-pattern：表示Web资源最终的映射路径(也是最终的访问路径)</p>
+</li>
+</ul>
+<p><img src="WebXml.jpg" alt="&quot;Web xml Servlet Configuration&quot;"></p>
+<p>运行项目，在URL栏中输入<a href="http://localhost:8080/hello_war/hello" target="_blank" rel="noopener">http://localhost:8080/hello_war/hello</a> 可以看到以下输出：</p>
+<p><img src="ProjectFinish.jpg" alt="&quot;Finish&quot;"></p>
+<p>至此你已经学会了配置环境 =&gt; 使用Maven =&gt; 如何挑选合适的Tomcat依赖项 =&gt; 编写简单的Servlet程序。</p>
+<p>原创不易，写这一篇好累……</p>
+<p>如果我的博客中存在问题，请发邮件到：<a href="mailto:&#x65;&#114;&#111;&#x73;&#105;&#111;&#x6e;&#x7a;&#104;&#x75;&#64;&#111;&#x75;&#116;&#x6c;&#x6f;&#111;&#107;&#46;&#x63;&#111;&#109;">&#x65;&#114;&#111;&#x73;&#105;&#111;&#x6e;&#x7a;&#104;&#x75;&#64;&#111;&#x75;&#116;&#x6c;&#x6f;&#111;&#107;&#46;&#x63;&#111;&#109;</a>，Thank you</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/JDK/" rel="tag"># JDK</a>
+          
+            <a href="/tags/Tomcat/" rel="tag"># Tomcat</a>
+          
+            <a href="/tags/Web/" rel="tag"># Web</a>
+          
+            <a href="/tags/IDE/" rel="tag"># IDE</a>
+          
+            <a href="/tags/Maven/" rel="tag"># Maven</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/19/Tomcat%E9%97%AA%E9%80%80%E9%94%99%E8%AF%AF%E6%B8%85%E5%8D%95/" rel="next" title="Tomcat闪退错误清单">
+                <i class="fa fa-chevron-left"></i> Tomcat闪退错误清单
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpeg"
+                alt="ErosionYing" />
+            
+              <p class="site-author-name" itemprop="name">ErosionYing</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Erosionying" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:erosionzhu@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Friend Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://anduin.aiursoft.com/" title="Anduin Xue" target="_blank">Anduin Xue</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JDK"><span class="nav-number">1.</span> <span class="nav-text">JDK</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载-JDK"><span class="nav-number">1.1.</span> <span class="nav-text">下载 JDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置JDK"><span class="nav-number">1.2.</span> <span class="nav-text">配置JDK</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TOMCAT"><span class="nav-number">2.</span> <span class="nav-text">TOMCAT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载Tomcat-10"><span class="nav-number">2.1.</span> <span class="nav-text">下载Tomcat(10)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Tomcat服务器"><span class="nav-number">2.2.</span> <span class="nav-text">配置Tomcat服务器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Maven"><span class="nav-number">3.</span> <span class="nav-text">Maven</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载Maven"><span class="nav-number">3.1.</span> <span class="nav-text">下载Maven</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Maven"><span class="nav-number">3.2.</span> <span class="nav-text">配置Maven</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最终配置"><span class="nav-number">4.</span> <span class="nav-text">最终配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Path配置"><span class="nav-number">4.1.</span> <span class="nav-text">Path配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证"><span class="nav-number">5.</span> <span class="nav-text">验证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#验证JDK"><span class="nav-number">5.1.</span> <span class="nav-text">验证JDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证Maven"><span class="nav-number">5.2.</span> <span class="nav-text">验证Maven</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证Tomcat"><span class="nav-number">5.3.</span> <span class="nav-text">验证Tomcat</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IDEA"><span class="nav-number">6.</span> <span class="nav-text">IDEA</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装IDEA"><span class="nav-number">6.1.</span> <span class="nav-text">安装IDEA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置IDEA主题"><span class="nav-number">6.2.</span> <span class="nav-text">配置IDEA主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置IDEA开发环境"><span class="nav-number">6.3.</span> <span class="nav-text">配置IDEA开发环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用IDEA创建JAVA-WEB项目"><span class="nav-number">6.4.</span> <span class="nav-text">使用IDEA创建JAVA WEB项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JAVA-WEB-Project"><span class="nav-number">7.</span> <span class="nav-text">JAVA WEB Project</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">7.1.</span> <span class="nav-text">配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动项目"><span class="nav-number">8.</span> <span class="nav-text">启动项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建并运行Servlet"><span class="nav-number">9.</span> <span class="nav-text">创建并运行Servlet</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ErosionYing</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+</body>
+</html>
