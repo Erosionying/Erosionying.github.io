@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="IDE,Theme," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Microsoft一直是我的信仰，即便我心开发Java代码，我心依旧留给.NET Core。正如，我身虽然使用IDEA，我心却早已给了Visual Studio。虽脚下山路难行，却依旧向往星空。太抒情了~ 我懂了，这就来波Visual Studio主题！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IDEA中配置Visual Studio风格开发环境">
+<meta property="og:url" content="http://yoursite.com/2020/11/13/IDEA%E4%B8%AD%E9%85%8D%E7%BD%AEVisual-Studio%E9%A3%8E%E6%A0%BC%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/index.html">
+<meta property="og:site_name" content="Erosion Ying">
+<meta property="og:description" content="Microsoft一直是我的信仰，即便我心开发Java代码，我心依旧留给.NET Core。正如，我身虽然使用IDEA，我心却早已给了Visual Studio。虽脚下山路难行，却依旧向往星空。太抒情了~ 我懂了，这就来波Visual Studio主题！">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2020/11/13/IDEA%E4%B8%AD%E9%85%8D%E7%BD%AEVisual-Studio%E9%A3%8E%E6%A0%BC%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/giteeIDEATheme.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/11/13/IDEA%E4%B8%AD%E9%85%8D%E7%BD%AEVisual-Studio%E9%A3%8E%E6%A0%BC%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/importset.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/11/13/IDEA%E4%B8%AD%E9%85%8D%E7%BD%AEVisual-Studio%E9%A3%8E%E6%A0%BC%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/import.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/11/13/IDEA%E4%B8%AD%E9%85%8D%E7%BD%AEVisual-Studio%E9%A3%8E%E6%A0%BC%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/settings.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/11/13/IDEA%E4%B8%AD%E9%85%8D%E7%BD%AEVisual-Studio%E9%A3%8E%E6%A0%BC%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/theme.jpg">
+<meta property="article:published_time" content="2020-11-13T01:58:24.000Z">
+<meta property="article:modified_time" content="2020-11-13T03:53:27.203Z">
+<meta property="article:author" content="ErosionYing">
+<meta property="article:tag" content="IDE">
+<meta property="article:tag" content="Theme">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/11/13/IDEA%E4%B8%AD%E9%85%8D%E7%BD%AEVisual-Studio%E9%A3%8E%E6%A0%BC%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/giteeIDEATheme.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/11/13/IDEA中配置Visual-Studio风格开发环境/"/>
+
+
+
+
+
+  <title>IDEA中配置Visual Studio风格开发环境 | Erosion Ying</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Erosion Ying</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            HOME
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/13/IDEA%E4%B8%AD%E9%85%8D%E7%BD%AEVisual-Studio%E9%A3%8E%E6%A0%BC%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ErosionYing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Erosion Ying">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">IDEA中配置Visual Studio风格开发环境</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-11-13T09:58:24+08:00">
+                2020-11-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IDE/" itemprop="url" rel="index">
+                    <span itemprop="name">IDE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Microsoft一直是我的信仰，即便我心开发Java代码，我心依旧留给.NET Core。正如，我身虽然使用IDEA，我心却早已给了Visual Studio。虽脚下山路难行，却依旧向往星空。太抒情了~ 我懂了，这就来波Visual Studio主题！</p>
+<a id="more"></a>
+
+<p>前几天吃着火锅唱着歌，刷着网络，发着呆，突然就找到了这么一个IDEA的开源主题，好家伙，原来有和我一样的人(老感动了)。源码Gitee链接: <a href="https://gitee.com/durcframework/VisualStudioThemeForIntelliJ。" target="_blank" rel="noopener">https://gitee.com/durcframework/VisualStudioThemeForIntelliJ。</a></p>
+<p><img src="giteeIDEATheme.jpg" alt="&quot;gitee project&quot;"><br>选择任意一种方式下载，推荐直接点击Download ZIP(如果没有Gitee帐户，需要注册帐户)，使用Git或者SVN下载的都是源代码，需要打包，这里是想更加简单。</p>
+<p>把压缩包最好自己去创建一个文件夹，这样有助于后期方便管理我们的文件(非强迫症玩家可以直接忽略)。</p>
+<p>找到合适的地方，创建Theme文件夹，将下载的Zip包复制进去。</p>
+<p>打开IDEA，打开File -&gt; Manage IDE Settings -&gt; Import Settings</p>
+<p><img src="importset.jpg" alt="&quot;Import Settings&quot;"></p>
+<p>找到自己下载的或自己压缩的Zip包，点击OK</p>
+<p><img src="import.jpg" alt="&quot;import&quot;"></p>
+<p>完成这些之后，重启IDEA(避免玄学错误，这是个人习惯)。</p>
+<p>再次打开IDEA，选择File -&gt; Settings;</p>
+<p><img src="settings.jpg" alt="&quot;Settings&quot;"></p>
+<p>选择Editor -&gt; Color Scheme 右侧Scheme下拉框中找到Visual Studio系列主题。</p>
+<p>我使用的是Visual Studio的经典暗黑主题也就是Visual Studio 2019 Dark Optimize(带个Optimize的我觉着肯定要好一些)</p>
+<p><img src="theme.jpg" alt="&quot;theme&quot;"></p>
+<p>选中点击右下角APPLY，然后点击OK，主题已经更换。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/IDE/" rel="tag"># IDE</a>
+          
+            <a href="/tags/Theme/" rel="tag"># Theme</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/24/JDK14-Tomcat10-Maven%E6%89%93%E9%80%A0JavaWeb%E6%B8%85%E7%9C%9F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" rel="next" title="JDK14+Tomcat10+Maven打造JavaWeb清真开发环境">
+                <i class="fa fa-chevron-left"></i> JDK14+Tomcat10+Maven打造JavaWeb清真开发环境
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/11/13/Java%E4%BB%A3%E7%A0%81%E4%BD%BF%E7%94%A8OutLook%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" rel="prev" title="Java代码使用OutLook发送邮件">
+                Java代码使用OutLook发送邮件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpeg"
+                alt="ErosionYing" />
+            
+              <p class="site-author-name" itemprop="name">ErosionYing</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Erosionying" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:erosionzhu@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Friend Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://anduin.aiursoft.com/" title="Anduin Xue" target="_blank">Anduin Xue</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ErosionYing</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+
+
+<script type="text/javascript"
+color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+</body>
+</html>
